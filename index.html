@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strad Slater</title>
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+        /* Apply transition to body and other elements */
+        body, header, .about-me, .main-section, .project-card, .experience-card, .writing-card {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        :root {
+            --background-color: #273341;
+            --text-color: #fff;
+            --header-bg-color: #2C3E50;
+            --container-bg-color: #2C3E50;
+            --card-bg-color: #273341;
+            --card-text-color: white;
+        }
+
+        .light-theme {
+            --background-color: #fff;
+            --text-color: #333;
+            --header-bg-color: #ddd;
+            --container-bg-color: #ddd;
+            --card-bg-color: #fff;
+            --card-text-color: #333;
+        }
+
+        .dark-theme {
+            --background-color: #222222;
+            --text-color: #ffffff;
+            --header-bg-color: #2e3134;
+            --container-bg-color: #2e3134;
+            --card-bg-color: #222222;
+            --card-text-color: white;
+        }
+
+        .green-theme {
+            --background-color: rgb(38, 55, 38);
+            --text-color: #ffffff;
+            --header-bg-color: rgb(60, 74, 68);
+            --container-bg-color: rgb(60, 74, 68);
+            --card-bg-color: rgb(38, 55, 38);
+            --card-text-color: white;
+        }
+
+        .red-theme {
+            --background-color: rgb(73, 24, 24);
+            --text-color: #ffffff;
+            --header-bg-color: rgb(88, 30, 30);
+            --container-bg-color: rgb(88, 30, 30);
+            --card-bg-color: rgb(73, 24, 24);
+            --card-text-color: white;
+        }
+
+        .yellow-theme {
+            --background-color: rgb(81, 78, 18);
+            --text-color: #ffffff;
+            --header-bg-color: rgb(103, 99, 26);
+            --container-bg-color: rgb(103, 99, 26);
+            --card-bg-color: rgb(81, 78, 18);
+            --card-text-color: white;
+        }
+
+                /* Styling for WebKit (Chrome, Safari, Edge) */
+        ::-webkit-scrollbar {
+            width: 12px; /* Width of the scrollbar */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--container-bg-color); /* Background of the track */
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--background-color); /* Color of the thumb */
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--background-color); /* Color when hovering over the thumb */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            height: 100svh;
+            max-height: 100svh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header section */
+        header {
+            background-color: var(--header-bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        .social-links a {
+            margin-left: 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 18px;
+            transition: border-bottom-color 0.1s ease;
+            border-bottom: 4px solid transparent; 
+        }
+
+        .social-links a:hover {
+            border-bottom: 4px solid var(--background-color);
+        }
+
+        .container {
+            height: 100%;
+            flex-grow: 1;
+            display: flex;
+            margin: 20px; /* Optional margin around the container */
+            height: calc(100vh - 110px);
+            color: var(--text-color);
+            padding-bottom: 20px;
+            box-sizing: border-box
+        }
+
+        /* About Me Section */
+        .about-me {
+            width: 25%;
+            background-color: var(--header-bg-color);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 100%; /* Fill the remaining height below the header */
+            border-radius: 10px;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            justify-content: center; /* Center items vertically */
+            align-items: center;     /* Center items horizontally */
+            text-align: center;      /* Ensure text is centered */
+        }
+
+        .about-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+            margin-bottom: 20px; /* Add space below the image */
+        }
+
+        .about-me h2 {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Main section with toggling tabs */
+        .main-section {
+            width: 75%;
+            margin-left: 20px;
+            background-color: var(--container-bg-color);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;  /* Ensure column layout */
+            height: 100%;
+            position: relative;
+            border-radius: 10px;
+            overflow-y: hidden; /* Remove any parent-level scrollbars */
+        }
+
+        /* Navigation for toggling */
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 10px;
+        }
+
+        .tabs button {
+            background-color: transparent;
+            color: var(--text-color);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: border-bottom-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            /* Add a transparent bottom border initially */
+            transition: transform 0.2s ease, border-bottom-color 0.3s ease;
+            border-bottom: 4px solid transparent; 
+        }
+
+        .tabs button.active {
+            border-bottom: 4px solid var(--background-color); 
+        }
+
+        /* Hover effect */
+        .tabs button:hover { 
+            transform: scale(1.02); 
+            border-bottom-color: var(--background-color); /* Add a bottom border color on hover */
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+
+        #projects.tab-content.active {
+            display: block;
+            padding: 10px;
+        }
+
+        #experiences.tab-content.active {
+            display: block;
+            padding: 20px;
+        }
+
+        #writing.tab-content.active {
+            display: block;
+            padding: 20px;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+            gap: 20px;
+            height: 100%; 
+            padding: 10px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg-color);
+            padding: 20px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: var(--card-text-color);
+            border-radius: 10px;
+            margin-right: 10px;
+            transition: transform 0.3s ease
+        }
+
+        .project-card:hover{
+            transform: scale(1.02);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover; 
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .project-card h3{
+            padding-bottom: 15px;
+            text-align: left;
+        }
+        .project-card p{
+            text-align: left;
+            padding-bottom: 10px;
+        }
+
+        .project-card a{
+            text-align: left;
+            align-items: start;
+            color: var(--card-text-color);
+        }
+
+        /* Experience and Writing */
+        .experience-card, .writing-card {
+            background-color: var(--card-bg-color);
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            color: var(--card-text-color);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .experience-card h3{
+            padding-top: 20px;
+            padding-right: 20px;
+        }
+
+        .experience-card p{
+            padding-top: 10px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+        }
+
+        .experience-card img{
+            width: 200px;
+            height: 200px;
+            object-fit: cover; 
+            border-radius: 5px;
+            margin: 20px;
+        }
+        
+        .writing-card h3{
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+        }
+
+        .writing-card a{
+            color: var(--card-text-color)
+        }
+
+        .writing-card p{
+            padding-top: 10px;
+            padding-bottom: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .writing-card img{
+            width: 100%;  /* Set width to fill the container */
+            max-width: 200px;  /* Set a maximum width to ensure consistency */
+            max-height: 100px;
+            object-fit: cover; 
+            border-radius: 5px;
+            margin: 20px;
+        }
+
+        .experience-card:hover{
+            transform: scale(1.02);
+        }
+
+        .writing-card:hover{
+            transform: scale(1.02);
+        }
+
+        /* Style for the select dropdown */
+        .theme-selector {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--container-bg-color);; /* Background color of the dropdown */
+            color: var(--card-text-color); /* Text color */
+            border: 2px solid var(--container-bg-color); /* Border color */
+            border-radius: 20px; /* Rounded corners */
+            padding: 10px 0px; /* Padding inside the dropdown */
+            font-size: 16px; /* Font size */
+            cursor: pointer; /* Pointer cursor on hover */
+            font-size: 18px; 
+            margin: 0 10px;
+        }
+
+        /* Style when hovering over the dropdown */
+        .theme-selector:hover {
+            background-color: var(--background-color); /* Change background on hover */
+            border: 2px solid var(--container-bg-color);
+        }
+
+        /* Style for the dropdown options */
+        .theme-selector option {
+            background-color: var(--background-color); /* Background color for options */
+            color: var(--card-text-color); /* Text color for options */ 
+            border: 2px solid var(--container-bg-color);; /* Remove border from options */
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Focus state when the dropdown is selected */
+        .theme-selector:focus {
+            outline: none; /* Remove default focus outline */
+            border: 2px solid var(--container-bg-color);
+        }
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <h1>Strad Slater</h1>
+    <div class="social-links">
+        <a href="https://www.linkedin.com/in/strad-slater-a346341b9/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/StradSlater1" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://medium.com/@williamslater2003" target="_blank"><i class="fab fa-medium"></i></a>
+        <a href="https://www.youtube.com/@stradslater2767" target="_blank"><i class="fab fa-youtube"></i></a>
+        <select id="theme-selector" class="theme-selector" onchange="changeTheme()">
+            <!-- <option value="Theme" disabled selected>Theme</option> -->
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="blue" selected>Blue</option>
+            <option value="green">Green</option>
+            <option value="red">Red</option>
+            <option value="yellow">Yellow</option>
+        </select>
+    </div>
+</header>
+
+<div class="container">
+    <!-- About Me Section -->
+    <div class="about-me">
+        <img src="img/profile.jpg" alt="Profile pic" class="about-image">
+        <h2>About Me</h2>
+        <p>My name is Strad! I am a senior at the University of Southern California studying Applied and Computational Mathematics. My interests include NLP, ML, AI, Data Science, Bioinformatics, Math, Nanotechnology, Politics, Ethics, Physics, Singing, Movies, Calisthenics, Rock Climbing and more! <br><br> Email: Stradslater12345@gmail.com
+        </p>
+    </div>
+
+    <!-- Main Section with Tabs -->
+    <div class="main-section">
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('projects')">Projects</button>
+            <button class="tab-button" onclick="showTab('experiences')">Experiences</button>
+            <button class="tab-button" onclick="showTab('writing')">Writing</button>
+        </div>
+
+        <!-- Projects Section -->
+        <div id="projects" class="tab-content active">
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="img/sentiment.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://github.com/StradSlater1/News_Sentiment_With_Explanations" target="_blank">Prediction Model for Phrase Importance in the Sentiment Analysis of News Articles</a></h3>
+                    <p>A logistic regression model used to predict the importance of a word/phrase to the classified sentiment of a sentence from a news article.</p>
+                </div>
+                <div class="project-card">
+                    <img src="img/news.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://github.com/StradSlater1/Rationtalk---News-Summarizer-Website-Work-in-Progress-" target="_blank">Rationtalk - Objective News Summarization</a></h3>
+                    <p>A more objective news summarization model that pulls from facts consistent across multiple news sources.</p>
+                </div>
+                <div class="project-card">
+                    <img src="img/email.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://github.com/StradSlater1/Email-Organizer-for-Job-Applications-Using-Naive-Bayes" target="_blank">Email Organizer Using Naive Bayes</a></h3>
+                    <p>A email organizer that filters for job related emails using Naive Bayes.</p>
+                </div>
+                <div class="project-card">
+                    <img src="img/thyroid.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://github.com/StradSlater1/Classification-of-Abnormal-Thyroid-Behavior-Using-Logistic-Regression" target="_blank">Thyriod Abnormality Classification Model with Logistic Regression</a></h3>
+                    <p>A logistic regression model used to classify between healthy and abnormal thyriod behavior such as hyperthyroidism.</p>
+                </div>
+                <div class="project-card">
+                    <img src="img/superconductor.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://github.com/StradSlater1/Superconductor_Critical_Temperature_Predictor_Linear_Regression" target="_blank">Critical Temperature Prediction of Possible Superconductors Using Linear Regression</a></h3>
+                    <p>A linear regression model used to predict the critical temeperature of a material to aid in superconductor discovery.</p>
+                </div>
+                <div class="project-card">
+                    <img src="img/genome.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://github.com/StradSlater1/QBIO401-final" target="_blank">Genome Wide Association Study Analysis on Anxiety and Intelligence</a></h3>
+                    <p>A GWAS on genes related to anxiety, OCD, PTSD and intelligence and creativity to test a hypothesis on a possible genetic link between the two types of traits.</p>
+                </div>
+                <div class="project-card">
+                    <img src="img/lyft bay wheels.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://github.com/StradSlater1/Lyft---Effect-of-Weather-Conditions-on-Revenue-from-Bay-Wheels-Program" target="_blank">Effect of Weather on the Daily Revenue from Lyft's Bay Wheels Program</a></h3>
+                    <p>An analysis of how weather effects the Lyfts Bay Wheels program's profits and amount of rides per day.</p>
+                </div>
+                <div class="project-card">
+                    <img src="img/protest.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://github.com/StradSlater1/Protest-Response-Predictor" target="_blank">Government Response to Protest Prediction Model</a></h3>
+                    <p>An analysis of government responses to protest over the last 3 decades. A prediction model was made using n-nearest neighbors to predict the government's response.</p>
+                </div>
+                <div class="project-card">
+                    <img src="img/philosophy.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://github.com/StradSlater1/Philosophy-Book-Recommender" target="_blank">Philosophy Book Reccomender</a></h3>
+                    <p>A model used to recommend philosophy books based on books with a similar description and genre.</p>
+                </div>
+                <div class="project-card">
+                    <img src="img/dlp.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://drive.google.com/file/d/1UPJT_NbHnyNFbJ0d7DsPTQzTob6j0nlB/view?usp=sharing" target="_blank">Investigation on the Effect of Photo Dose Parameters on Mechanical Properties of Photopolymer Resin</a></h3>
+                    <p>Final research paper as a part of my 10 week research program at the Milwaukee School of Engineering. Presented at NCUR.</p>
+                </div>
+                <div class="project-card">
+                    <img src="img/cable.jpg" alt="Project 1 Image" class="project-image">
+                    <h3><a href="https://www.linkedin.com/in/strad-slater-a346341b9/overlay/experience/2289246521/multiple-media-viewer/?profileId=ACoAADLRK8gBVMeD7FyyYSmIN7knvTRgZvL_9zc&treasuryMediaId=1722868058124" target="_blank">Time-series Observations of the Conductivity of Cable Bacteria During Long Term Incubation</a></h3>
+                    <p>Final research statement for a grant recieved to study how the conductivty of cable bacteria changes over their lifetime.</p>
+                </div>
+                </div>
+                <!-- Add more projects here -->
+            </div>
+
+            <!-- Experiences Section -->
+            <div id="experiences" class="tab-content">
+                <div class="experience-card">
+                    <img src="eimg/dotdash.jpg">
+                    <div>
+                        <h3>DOTDASH MEREDITH (Media and Publishing Company)</h3>
+                        <p>Data Science Intern <em>(Jun 2024 - Aug 2024)</em></p>
+                        <p>● Pulled, scraped and cleaned pharmaceutical advertising data on populations with psoriatic arthritis, diabetes, and breast cancer; Used
+                            natural language processing to topic cluster articles based on their audience quality and impact scores.<br>
+                            ● Insights were used to give the clients (Cosentyx, Mounjaro, Verzenio) valuable data on their target audience to further optimize advertising
+                            campaigns.</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <img src="eimg/usc.jpg">
+                    <div>
+                        <h3>SUPPLEMENTAL INSTRUCTION AT USC</h3>
+                        <p>Calculus III Supplemental Instructor <em>(Aug 2023 - Present)</em></p>
+                        <p> ● Assist up to 30 students in learning and reviewing calculus III material in order to improve test scores in the class.<br>
+                            ● Create worksheets and hosts 3 review sessions a week to go over material learnt in class.</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <img src="eimg/usc.jpg">
+                    <div>
+                        <h3>THE SMITH LAB AT USC</h3>
+                        <p>Bioinformatics Research Assistant <em>(Jan 2024 - May 2024)</em></p>
+                        <p> ● Created a C++ program using recursion to find the Hamming Neighborhood of a variable length genetic sequence.<br>
+                            ● Detected error in bisulfate FASTQ sequence mapping program, Abismal.</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <img src="eimg/msoe.jpg">
+                    <div>
+                        <h3>RAPID PROTOTYPING CENTER AT MSOE</h3>
+                        <p>3D Printing Researcher <em>(May 2023 - Aug 2023)</em></p>
+                        <p> ● Found optimal levels of photonic parameters on a new resin 3D printer for mechanical strength of printed products; findings can be used
+                            to optimize for mechanical strength and price of printing.<br>
+                            ● Collected data using a tensile strength machine and durometer; Tested for statistical significance of the data using Excel; Visualized data in Excel.</p>
+                    </div>
+                </div>
+                <div class="experience-card">
+                    <img src="eimg/usc.jpg">
+                    <div>
+                        <h3>NANOBIO LAB AT USC</h3>
+                        <p>Biophysics Research Assistant <em>(Aug 2022 - May 2023)</em></p>
+                        <p> ● Found that cutting edge conductive cable bacteria are only conductive for a short period of their lifetime which supported the idea that a
+                            significant amount of batches will be needed for academic and industrial research.<br>
+                            ● Analyzed data collected from light microscopes and voltmeters; Harvested Cable Bacteria using soil packing and storing; Data visualization
+of the findings was done using Excel.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Writing Section -->
+            <div id="writing" class="tab-content">
+                <div class="writing-card">
+                    <img src="aimg/illumin.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://illumin.usc.edu/therapy-based-chatbot-the-savior-of-the-mental-health-crisis/' target="_blank">Therapy-based Chatbot: The Savior of the Mental Health Crisis</a></h3>
+                        <p>A description of how recurrent neural networks work for chatbots along with their application in the mental healthcare space. Published in USC's Illumin magazine.</p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/oragami.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://williamslater2003.medium.com/a-review-of-recent-advances-in-the-field-of-dna-origami-based-drug-delivery-methods-dcbe097987b8' target="_blank">A Review of Recent Advances in the Field of DNA Origami-Based Drug Delivery Methods</a></h3>
+                        <p>A literature review of recent methods for DNA origami-based drug delivery technologies. 7 different methods are discussed ranging from devices with logic to programmable structures. </p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/dna.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://williamslater2003.medium.com/learning-the-language-of-dna-762930f42b9c' target="_blank">Learning the Language of DNA</a></h3>
+                        <p>A short article on the genetic code and our ability to use it as a language to alter biomaterial.</p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/softnano.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://williamslater2003.medium.com/a-summary-of-soft-machines-nanotechnology-and-life-by-richard-a-l-jones-783c603d70f7' target="_blank">A Summary of “Soft Machines: Nanotechnology and Life” by Richard A. L. Jones</a></h3>
+                        <p>A lengthy summary of a book arguing for the use of molecular biology to create atomically precised machines.</p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/quantum.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://studentsxstudents.com/the-power-of-quantum-simulations-c02a8f45d278' target="_blank">The Power of Quantum Simulations</a></h3>
+                        <p>A deep dive into simulations using quantum computers. The basics of quantum computing along with its applications are discussed.</p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/auroporis.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://williamslater2003.medium.com/auroporis-the-trojan-horse-of-cancer-treatment-f44c8da88d93' target="_blank">Auroporis: The Trojan Horse of Cancer Treatment</a></h3>
+                        <p>An idea for a moonshot company, Auroporis, that utilizes plasmonics to create gold nanoparticles that target cancer cells.</p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/atom.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://williamslater2003.medium.com/holding-a-single-atom-da18a674f559' target="_blank">Holding a Single Atom</a></h3>
+                        <p>A review of my talk with Dr. Mikkel Anderson on his lab's ability to isolate and "hold" single atoms.</p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/happy.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://medium.com/nerd-for-tech/creating-a-facial-emotion-recognizer-line-by-line-169d8a2c3986' target="_blank">Creating a Facial Emotion Recognizer Line by Line</a></h3>
+                        <p>A line by line tutorial of how to create a facial emotion recognizer using pytorch.</p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/expressions.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://williamslater2003.medium.com/how-to-detect-lies-with-a-machine-and-microexpressions-fba23c921221' target="_blank">How to Detect Lies with a Machine and Microexpressions</a></h3>
+                        <p>A deep dive into how microexpressions could be detected using AI along with recent advances in the field.</p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/assembly.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://williamslater2003.medium.com/self-assembly-of-nanocrystal-superlattices-e0967ed60ba0' target="_blank">Self-Assembly of Nanocrystal Superlattices</a></h3>
+                        <p>A summary of a paper on the self-assembly of nanocrystal superlattices.</p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/aliens.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://williamslater2003.medium.com/the-aliens-are-here-and-they-want-our-morals-78687025639c' target="_blank">The Aliens are here — and They Want our Morals</a></h3>
+                        <p>A discussion on the future of AI and AI ethics. </p>
+                    </div>
+                </div>
+                <div class="writing-card">
+                    <img src="aimg/chip.jpg" alt="Article 1 Image" class="writing-image">
+                    <div>
+                        <h3><a href='https://medium.com/swlh/making-room-at-the-bottom-d7e98ddd704' target="_blank">Making Room at the Bottom</a></h3>
+                        <p>An exploration into the idea of "atomically precise manufacurting," the ability to manufacutre products atom by atom.</p>
+                    </div>
+                </div>
+                
+                <!-- Add more articles here -->
+            </div>
+
+        </div>
+
+        
+    </div>
+</div>
+
+<script>
+    function showTab(tabName) {
+        const tabs = document.querySelectorAll('.tab-button');
+        const contents = document.querySelectorAll('.tab-content');
+        
+        tabs.forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        contents.forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        document.querySelector(`#${tabName}`).classList.add('active');
+        event.target.classList.add('active');
+    }
+    function changeTheme() {
+        const body = document.body;
+        const theme = document.getElementById('theme-selector').value;
+
+        // Remove all possible theme classes before applying the new one
+        body.classList.remove('light-theme', 'blue-theme', 'green-theme', 'red-theme', 'yellow-theme', 'dark-theme');
+
+        // Add the selected theme class
+        if (theme === 'light') {
+            body.classList.add('light-theme');
+        } else if (theme === 'blue') {
+            body.classList.add('blue-theme');
+        } else if (theme === 'green') {
+            body.classList.add('green-theme');
+        } else if (theme === 'red') {
+            body.classList.add('red-theme');
+        } else if (theme === 'yellow') {
+            body.classList.add('yellow-theme');
+        } else if (theme === 'dark') {
+            body.classList.add('dark-theme');
+        } 
+    }
+
+
+
+</script>
+
+</body>
+</html>
