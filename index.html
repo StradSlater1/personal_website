@@ -388,6 +388,95 @@
             border: 2px solid var(--container-bg-color);
         }
 
+                /* Mobile View Adjustments */
+        @media (max-width: 1000px) {
+            /* Stack About Me on top */
+            .container {
+                flex-direction: column;
+                overflow-y: visible;
+                height: auto;
+                align-items: center;
+                padding: 0; /* Remove padding */
+            }
+
+            .about-me {
+                width: 100%;
+                margin: 0 auto;
+                height: auto;
+                margin-bottom: 20px;
+            }
+
+            .main-section {
+                width: 100%; /* Full width to align with about-me */ 
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Center content inside main section */
+                margin: 0 auto; 
+                overflow-x: hidden;
+                margin-bottom: 20px;
+            }
+
+            /* Replace tabs with dropdown on mobile */
+            .tabs {
+                display: flex;
+                justify-content: space-around;
+                margin-bottom: 10px;
+            }
+
+            .tab-content{
+                overflow-y: hidden;
+                overflow-x: hidden;
+            }
+
+            .tab-dropdown {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            /* Stack project, experience, and writing cards vertically */
+            .projects-grid, .experience-card, .writing-card {
+                display: block;
+                width: 100%;
+            }
+
+            .project-card, .experience-card, .writing-card {
+                width: 100%;
+                margin-bottom: 20px;
+
+            }
+
+            .experience-card, .writing-card {
+                padding-top: 10px;
+            }
+
+            /* Image on top of text for experience and writing cards */
+            .experience-card img, .writing-card img {
+                display: block; /* Make the image a block element */
+                margin: 20px auto 0 auto; /* Center the image */
+                width: 100%; /* Ensure it takes the full width of the container */
+                max-width: 300px; /* Optional: Set a max width for consistency */
+                height: auto; /* Maintain aspect ratio */
+                object-fit: cover;
+                
+            }
+
+            .experience-card div, .writing-card div {
+                display: block;
+                text-align: center;
+                padding: 20px;
+                justify-content: center;
+            }
+
+            .experience-card div p{
+                text-align: start;
+            }
+
+
+            
+        }
+
+
 
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
